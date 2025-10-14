@@ -14,15 +14,8 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             Proyecto1Theme {
-                RealizarPedido()
+                FormularioPago()
                 }
             }
         }
     }
-
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    RealizarPedido()
-}
