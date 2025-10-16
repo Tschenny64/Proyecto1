@@ -1,28 +1,39 @@
 package com.example.proyecto1
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 
 
+data class Pedido(
+    val tipoPizza: String,
+    val carne: String,
+    val tamano: String,
+    val bebida: String,
+    val cantidadPizza: Int,
+    val cantidadBebida: Int
+)
 @Composable
 fun ResumenPedido() {
+    val pedido by remember {
+        mutableStateOf(
+            Pedido(
+                tipoPizza = "Barbacoa",
+                carne = "Pollo",
+                tamano = "Mediana",
+                bebida = "Cola",
+                cantidadPizza = 2,
+                cantidadBebida = 2
+            )
+        )
+    }
+
+    val precioTotal = calcularPrecio(pedido)
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -30,67 +41,55 @@ fun ResumenPedido() {
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.Start
     ) {
-        Spacer(modifier = Modifier.height(24.dp))
-
         Text(
-            text = "Resumen del pedido",
+            text = stringResource(R.string.titulo_resumen),
             style = MaterialTheme.typography.headlineSmall,
             modifier = Modifier.padding(bottom = 16.dp)
         )
 
-        // Variables simuladas
-        var tipoPizza by remember { mutableStateOf("Barbacoa") }
-        var carne by remember { mutableStateOf("Pollo") }
-        var tamano by remember { mutableStateOf("Mediana") }
-        var bebida by remember { mutableStateOf("Cola") }
-        var cantidadPizza by remember { mutableStateOf(2) }
-        var cantidadBebida by remember { mutableStateOf(2) }
-
-        val precioPizza = when (tamano) {
-            "Pequeña" -> 4.95
-            "Mediana" -> 6.95
-            "Grande" -> 10.95
-            else -> 0.0
-        }
-
-        val precioBebida = when (bebida) {
-            "Agua" -> 2.0
-            "Cola" -> 2.5
-            else -> 0.0
-        }
-
-        val precioTotal = (precioPizza * cantidadPizza) + (precioBebida * cantidadBebida)
-
-        // Mostrar resumen
-        Text("Pizza: $tipoPizza ($carne)")
-        Text("Tamaño: $tamano")
-        Text("Bebida: $bebida")
-        Text("Cantidad de pizzas: $cantidadPizza")
-        Text("Cantidad de bebidas: $cantidadBebida")
+        Text("${stringResource(R.string.pizza)}: ${pedido.tipoPizza} (${pedido.carne})")
+        Text("${stringResource(R.string.tamano)}: ${pedido.tamano}")
+        Text("${stringResource(R.string.bebida)}: ${pedido.bebida}")
+        Text("${stringResource(R.string.cantidad_pizzas)}: ${pedido.cantidadPizza}")
+        Text("${stringResource(R.string.cantidad_bebidas)}: ${pedido.cantidadBebida}")
         Text(
-            text = "Precio total: %.2f €".format(precioTotal),
+            text = "${stringResource(R.string.precio_total)}: %.2f €".format(precioTotal),
             modifier = Modifier.padding(top = 8.dp),
             style = MaterialTheme.typography.bodyLarge
         )
 
         Spacer(modifier = Modifier.height(32.dp))
 
-        // Botones
         Row(
             horizontalArrangement = Arrangement.SpaceEvenly,
             modifier = Modifier.fillMaxWidth()
         ) {
             Button(onClick = {
-                // REDIRIGIR A LA PAGINA PRINCIPAL
+                // Acción de cancelar
             }) {
-                Text("Cancelar")
+                Text(stringResource(R.string.cancelar))
             }
 
             Button(onClick = {
-                // REDIRIGIR FORMULARIO PAGO
+                // Acción de pagar
             }) {
-                Text("Pagar")
+                Text(stringResource(R.string.pagar))
             }
         }
     }
+}
+
+fun calcularPrecio(p: Pedido): Double {
+    val precioPizza = when (p.tamano) {
+        "Pequeña" -> 4.95
+        "Mediana" -> 6.95
+        "Grande" -> 10.95
+        else -> 0.0
+    }
+    val precioBebida = when (p.bebida) {
+        "Agua" -> 2.0
+        "Cola" -> 2.5
+        else -> 0.0
+    }
+    return (precioPizza * p.cantidadPizza) + (precioBebida * p.cantidadBebida)
 }

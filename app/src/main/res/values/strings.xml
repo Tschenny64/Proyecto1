@@ -1,3 +1,32 @@
 <resources>
     <string name="app_name">Proyecto1</string>
+    <!-- RESUMEN PEDIDO -->
+    <string name="titulo_resumen">Resumen del pedido</string>
+    <string name="pizza">Pizza</string>
+    <string name="tamano">Tamaño</string>
+    <string name="bebida">Bebida</string>
+    <string name="cantidad_pizzas">Cantidad de pizzas</string>
+    <string name="cantidad_bebidas">Cantidad de bebidas</string>
+    <string name="precio_total">Precio total</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="pagar">Pagar</string>
+
+    <!-- FORMULARIO  PAGO -->
+    <string name="titulo_pago">Formulario de pago</string>
+    <string name="tipo_tarjeta">Tipo de tarjeta</string>
+    <string name="visa">VISA</string>
+    <string name="mastercard">MasterCard</string>
+    <string name="euro6000">Euro 6000</string>
+    <string name="numero_tarjeta">Número de tarjeta</string>
+    <string name="fecha_caducidad">Fecha de caducidad (MM/AA)</string>
+    <string name="cvc">CVC</string>
+    <string name="confirmar_pago">Confirmar pago</string>
+
+    <!-- RESUMEN PAGO -->
+
+    <string name="titulo_resumen_pago">Resumen del pago</string>
+    <string name="aceptar">Aceptar</string>
+    <string name="enviar">Enviar</string>
+
+
 </resources>

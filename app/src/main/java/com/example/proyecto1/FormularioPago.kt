@@ -24,9 +24,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.res.stringResource
+
+data class Pago(
+    val tipoTarjeta: String,
+    val numeroTarjeta: String,
+    val fechaCaducidad: String,
+    val cvc: String
+)
 
 @Composable
 fun FormularioPago() {
+    var tipoTarjeta by remember { mutableStateOf("VISA") }
+    var numeroTarjeta by remember { mutableStateOf("") }
+    var fechaCaducidad by remember { mutableStateOf("") }
+    var cvc by remember { mutableStateOf("") }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -35,70 +48,57 @@ fun FormularioPago() {
         horizontalAlignment = Alignment.Start
     ) {
         Text(
-            text = "Formulario de pago",
+            text = stringResource(R.string.titulo_pago),
             style = MaterialTheme.typography.headlineSmall,
             modifier = Modifier.padding(bottom = 16.dp)
         )
 
-        // Tipo de tarjeta
-        var tipoTarjeta by remember { mutableStateOf("VISA") }
-
-        Text("Tipo de tarjeta:")
+        Text(stringResource(R.string.tipo_tarjeta))
         Row(verticalAlignment = Alignment.CenterVertically) {
             RadioButton(selected = tipoTarjeta == "VISA", onClick = { tipoTarjeta = "VISA" })
-            Text("VISA")
+            Text(stringResource(R.string.visa))
         }
         Row(verticalAlignment = Alignment.CenterVertically) {
             RadioButton(selected = tipoTarjeta == "MasterCard", onClick = { tipoTarjeta = "MasterCard" })
-            Text("MasterCard")
+            Text(stringResource(R.string.mastercard))
         }
         Row(verticalAlignment = Alignment.CenterVertically) {
             RadioButton(selected = tipoTarjeta == "Euro 6000", onClick = { tipoTarjeta = "Euro 6000" })
-            Text("Euro 6000")
+            Text(stringResource(R.string.euro6000))
         }
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Número de tarjeta
-        var numeroTarjeta by remember { mutableStateOf("") }
         OutlinedTextField(
             value = numeroTarjeta,
             onValueChange = { numeroTarjeta = it },
-            label = { Text("Número de tarjeta") },
+            label = { Text(stringResource(R.string.numero_tarjeta)) },
             singleLine = true,
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp)
         )
 
-        // Fecha de caducidad
-        var fechaCaducidad by remember { mutableStateOf("") }
         OutlinedTextField(
             value = fechaCaducidad,
             onValueChange = { fechaCaducidad = it },
-            label = { Text("Fecha de caducidad (MM/AA)") },
+            label = { Text(stringResource(R.string.fecha_caducidad)) },
             singleLine = true,
             modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp)
         )
 
-        // CVC
-        var cvc by remember { mutableStateOf("") }
         OutlinedTextField(
             value = cvc,
             onValueChange = { cvc = it },
-            label = { Text("CVC") },
+            label = { Text(stringResource(R.string.cvc)) },
             singleLine = true,
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp)
         )
 
-        // Botón de confirmar
         Button(
             onClick = {
-                // Aquí iría la lógica de pago
-            },
-            modifier = Modifier.align(Alignment.CenterHorizontally)
+            }
         ) {
-            Text("Confirmar pago")
+            Text(stringResource(R.string.confirmar_pago))
         }
     }
 }
