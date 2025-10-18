@@ -15,8 +15,8 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             Proyecto1Theme {
-                FormularioPago()
-                }
+                RealizarPedido()
             }
         }
     }
+}

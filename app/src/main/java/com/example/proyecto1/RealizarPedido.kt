@@ -1,33 +1,16 @@
 package com.example.proyecto1
 
-import android.icu.number.NumberFormatter
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.RadioButton
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.BiasAbsoluteAlignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ModifierLocalBeyondBoundsLayout
-import androidx.compose.ui.layout.VerticalAlignmentLine
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import org.intellij.lang.annotations.JdkConstants
+import com.example.proyecto1.R
 
 @Composable
 fun RealizarPedido() {
-
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -36,44 +19,46 @@ fun RealizarPedido() {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         var tipoPizza by remember { mutableStateOf("Romana") }
-        Text(text = "Tipo de pizza:")
+        Text(text = stringResource(R.string.tipo_pizza))
         Row {
             RadioButton(selected = tipoPizza == "Romana", onClick = { tipoPizza = "Romana" })
-            Text(text = "Romana")
+            Text(text = stringResource(R.string.romana))
         }
         Row {
             RadioButton(selected = tipoPizza == "Barbacoa", onClick = { tipoPizza = "Barbacoa" })
-            Text(text = "Barbacoa")
+            Text(text = stringResource(R.string.barbacoa))
         }
         Row {
             RadioButton(selected = tipoPizza == "Margarita", onClick = { tipoPizza = "Margarita" })
-            Text(text = "Margarita")
+            Text(text = stringResource(R.string.margarita))
         }
+
         if (tipoPizza == "Romana") {
             var conChampis by remember { mutableStateOf(false) }
             Row {
                 RadioButton(selected = conChampis, onClick = { conChampis = true })
-                Text("Con champiñones")
+                Text(stringResource(R.string.con_champis))
             }
             Row {
                 RadioButton(selected = !conChampis, onClick = { conChampis = false })
-                Text("Sin champiñones")
+                Text(stringResource(R.string.sin_champis))
             }
         }
+
         if (tipoPizza == "Barbacoa") {
             var tipoCarne by remember { mutableStateOf("Cerdo") }
-            Text("Tipo de carne:")
+            Text(stringResource(R.string.tipo_carne))
             Row {
                 RadioButton(selected = tipoCarne == "Cerdo", onClick = { tipoCarne = "Cerdo" })
-                Text("Cerdo")
+                Text(stringResource(R.string.cerdo))
             }
             Row {
                 RadioButton(selected = tipoCarne == "Pollo", onClick = { tipoCarne = "Pollo" })
-                Text("Pollo")
+                Text(stringResource(R.string.pollo))
             }
             Row {
                 RadioButton(selected = tipoCarne == "Ternera", onClick = { tipoCarne = "Ternera" })
-                Text("Ternera")
+                Text(stringResource(R.string.ternera))
             }
         }
 
@@ -83,95 +68,77 @@ fun RealizarPedido() {
 
             Row {
                 RadioButton(selected = conPina, onClick = { conPina = true })
-                Text("Con piña")
+                Text(stringResource(R.string.con_pina))
             }
             Row {
                 RadioButton(selected = !conPina, onClick = { conPina = false })
-                Text("Sin piña")
+                Text(stringResource(R.string.sin_pina))
             }
 
             Row {
                 RadioButton(selected = vegana, onClick = { vegana = true })
-                Text("Versión vegana")
+                Text(stringResource(R.string.vegana))
             }
             Row {
                 RadioButton(selected = !vegana, onClick = { vegana = false })
-                Text("Normal")
+                Text(stringResource(R.string.normal))
             }
         }
-        var tamanoPizza by remember { mutableStateOf("Pequeña") }
 
-        Text("Tamaño de la pizza:")
+        var tamanoPizza by remember { mutableStateOf("Pequeña") }
+        Text(stringResource(R.string.tamano_pizza))
         Row {
             RadioButton(selected = tamanoPizza == "Pequeña", onClick = { tamanoPizza = "Pequeña" })
-            Text("Pequeña (4,95 €)")
+            Text(stringResource(R.string.pequena))
         }
         Row {
             RadioButton(selected = tamanoPizza == "Mediana", onClick = { tamanoPizza = "Mediana" })
-            Text("Mediana (6,95 €)")
+            Text(stringResource(R.string.mediana))
         }
         Row {
             RadioButton(selected = tamanoPizza == "Grande", onClick = { tamanoPizza = "Grande" })
-            Text("Grande (10,95 €)")
+            Text(stringResource(R.string.grande))
         }
-        var bebida by remember { mutableStateOf("Sin bebida") }
 
-        Text("Bebida:")
+        var bebida by remember { mutableStateOf("Sin bebida") }
+        Text(stringResource(R.string.bebida))
         Row {
             RadioButton(selected = bebida == "Agua", onClick = { bebida = "Agua" })
-            Text("Agua (2 €)")
+            Text(stringResource(R.string.agua))
         }
         Row {
             RadioButton(selected = bebida == "Cola", onClick = { bebida = "Cola" })
-            Text("Cola (2,5 €)")
+            Text(stringResource(R.string.cola))
         }
         Row {
             RadioButton(selected = bebida == "Sin bebida", onClick = { bebida = "Sin bebida" })
-            Text("Sin bebida (0 €)")
+            Text(stringResource(R.string.sin_bebida))
         }
+
         var cantidadPizza by remember { mutableStateOf(1) }
-        Text("Cantidad de pizzas:")
-        Row(
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Button(onClick = {
-                if (cantidadPizza > 1) cantidadPizza--
-            }) {
+        Text(stringResource(R.string.cantidad_pizzas))
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Button(onClick = { if (cantidadPizza > 1) cantidadPizza-- }) {
                 Text("-")
             }
-            Text(
-                text = cantidadPizza.toString(),
-                modifier = Modifier.padding(horizontal = 16.dp)
-            )
-
-            Button(onClick = {
-                cantidadPizza++
-            }) {
+            Text(text = cantidadPizza.toString(), modifier = Modifier.padding(horizontal = 16.dp))
+            Button(onClick = { cantidadPizza++ }) {
                 Text("+")
             }
         }
 
         var cantidadBebida by remember { mutableStateOf(0) }
-        Text("Cantidad de bebidas:")
-        Row(
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Button(onClick = {
-                if (cantidadBebida > 0) cantidadBebida--
-            }) {
+        Text(stringResource(R.string.cantidad_bebidas))
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Button(onClick = { if (cantidadBebida > 0) cantidadBebida-- }) {
                 Text("-")
             }
-            Text(
-                text = cantidadBebida.toString(),
-                modifier = Modifier.padding(horizontal = 16.dp)
-            )
-
-            Button(onClick = {
-                cantidadBebida++
-            }) {
+            Text(text = cantidadBebida.toString(), modifier = Modifier.padding(horizontal = 16.dp))
+            Button(onClick = { cantidadBebida++ }) {
                 Text("+")
             }
         }
+
         val precioPizza = when (tamanoPizza) {
             "Pequeña" -> 4.95
             "Mediana" -> 6.95
@@ -188,7 +155,7 @@ fun RealizarPedido() {
         val precioTotal = (precioPizza * cantidadPizza) + (precioBebida * cantidadBebida)
 
         Text(
-            text = "Precio total: %.2f €".format(precioTotal),
+            text = stringResource(R.string.precio_total, precioTotal),
             style = MaterialTheme.typography.headlineMedium,
             modifier = Modifier.padding(top = 16.dp)
         )
@@ -197,27 +164,17 @@ fun RealizarPedido() {
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-
-
             Button(onClick = {
-                // REDIRIGIR A PANTALLA INICIAL
+                // Volver a pantalla inicial
             }) {
-                Text("Cancelar")
+                Text(stringResource(R.string.cancelar))
             }
 
             Button(onClick = {
-                // REDIRIGIR A RESUMEN DEL PAGO
+                // Ir a resumen del pedido
             }) {
-                Text("Aceptar")
+                Text(stringResource(R.string.aceptar))
             }
-
         }
-
-
     }
-}
-@Preview(showBackground = true)
-@Composable
-fun PreviewFormularioPago() {
-    RealizarPedido()
 }
