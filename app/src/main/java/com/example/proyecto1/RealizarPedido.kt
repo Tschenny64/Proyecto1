@@ -1,12 +1,29 @@
 package com.example.proyecto1
 
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.RadioButton
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.proyecto1.R
 
 @Composable
@@ -16,10 +33,13 @@ fun RealizarPedido() {
             .fillMaxSize()
             .padding(16.dp),
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         var tipoPizza by remember { mutableStateOf("Romana") }
-        Text(text = stringResource(R.string.tipo_pizza))
+        Text(
+            text = stringResource(R.string.tipo_pizza),
+            fontWeight = FontWeight.Bold,
+            fontSize = 18.sp
+        )
         Row {
             RadioButton(selected = tipoPizza == "Romana", onClick = { tipoPizza = "Romana" })
             Text(text = stringResource(R.string.romana))
@@ -47,7 +67,11 @@ fun RealizarPedido() {
 
         if (tipoPizza == "Barbacoa") {
             var tipoCarne by remember { mutableStateOf("Cerdo") }
-            Text(stringResource(R.string.tipo_carne))
+            Text(
+                text = stringResource(R.string.tipo_carne),
+                fontWeight = FontWeight.Bold,
+                fontSize = 18.sp
+            )
             Row {
                 RadioButton(selected = tipoCarne == "Cerdo", onClick = { tipoCarne = "Cerdo" })
                 Text(stringResource(R.string.cerdo))
@@ -86,7 +110,11 @@ fun RealizarPedido() {
         }
 
         var tamanoPizza by remember { mutableStateOf("Pequeña") }
-        Text(stringResource(R.string.tamano_pizza))
+        Text(
+            text = stringResource(R.string.tamano_pizza),
+            fontWeight = FontWeight.Bold,
+            fontSize = 18.sp
+        )
         Row {
             RadioButton(selected = tamanoPizza == "Pequeña", onClick = { tamanoPizza = "Pequeña" })
             Text(stringResource(R.string.pequena))
@@ -101,7 +129,11 @@ fun RealizarPedido() {
         }
 
         var bebida by remember { mutableStateOf("Sin bebida") }
-        Text(stringResource(R.string.bebida))
+        Text(
+            text = stringResource(R.string.bebida),
+            fontWeight = FontWeight.Bold,
+            fontSize = 18.sp
+        )
         Row {
             RadioButton(selected = bebida == "Agua", onClick = { bebida = "Agua" })
             Text(stringResource(R.string.agua))
@@ -116,7 +148,11 @@ fun RealizarPedido() {
         }
 
         var cantidadPizza by remember { mutableStateOf(1) }
-        Text(stringResource(R.string.cantidad_pizzas))
+        Text(
+            text = stringResource(R.string.cantidad_pizzas),
+            fontWeight = FontWeight.Bold,
+            fontSize = 18.sp
+        )
         Row(verticalAlignment = Alignment.CenterVertically) {
             Button(onClick = { if (cantidadPizza > 1) cantidadPizza-- }) {
                 Text("-")
@@ -128,7 +164,11 @@ fun RealizarPedido() {
         }
 
         var cantidadBebida by remember { mutableStateOf(0) }
-        Text(stringResource(R.string.cantidad_bebidas))
+        Text(
+            text = stringResource(R.string.cantidad_bebidas),
+            fontWeight = FontWeight.Bold,
+            fontSize = 18.sp
+        )
         Row(verticalAlignment = Alignment.CenterVertically) {
             Button(onClick = { if (cantidadBebida > 0) cantidadBebida-- }) {
                 Text("-")
@@ -157,24 +197,27 @@ fun RealizarPedido() {
         Text(
             text = stringResource(R.string.precio_total, precioTotal),
             style = MaterialTheme.typography.headlineMedium,
-            modifier = Modifier.padding(top = 16.dp)
+            modifier = Modifier
+                .align(Alignment.CenterHorizontally)
+                .padding(top = 16.dp)
         )
 
         Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(16.dp)
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center
         ) {
             Button(onClick = {
                 // Volver a pantalla inicial
-            }) {
-                Text(stringResource(R.string.cancelar))
-            }
+            }) { Text(stringResource(R.string.cancelar)) }
+
+            Spacer(modifier = Modifier.width(16.dp))
 
             Button(onClick = {
                 // Ir a resumen del pedido
-            }) {
-                Text(stringResource(R.string.aceptar))
-            }
+
+            }) { Text(stringResource(R.string.aceptar)) }
         }
+
     }
-}
+    }
+

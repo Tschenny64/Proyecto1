@@ -25,6 +25,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 
 data class Pago(
     val tipoTarjeta: String,
@@ -43,17 +44,20 @@ fun FormularioPago() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp),
+            .padding(40.dp)
+            .padding(top = 20.dp),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.Start
     ) {
         Text(
             text = stringResource(R.string.titulo_pago),
             style = MaterialTheme.typography.headlineSmall,
+            fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(bottom = 16.dp)
         )
 
-        Text(stringResource(R.string.tipo_tarjeta))
+        Text(stringResource(R.string.tipo_tarjeta),
+            fontWeight = FontWeight.Bold)
         Row(verticalAlignment = Alignment.CenterVertically) {
             RadioButton(selected = tipoTarjeta == "VISA", onClick = { tipoTarjeta = "VISA" })
             Text(stringResource(R.string.visa))
@@ -73,6 +77,7 @@ fun FormularioPago() {
             value = numeroTarjeta,
             onValueChange = { numeroTarjeta = it },
             label = { Text(stringResource(R.string.numero_tarjeta)) },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             singleLine = true,
             modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp)
         )
