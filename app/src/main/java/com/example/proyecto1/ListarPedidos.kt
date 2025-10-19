@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
@@ -21,7 +22,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-
 @Composable
 fun ListarPedidos() {
     val listaPedidos = listOf(
@@ -32,8 +32,7 @@ fun ListarPedidos() {
 
     var pedidoSeleccionado by remember { mutableStateOf<Pedido?>(null) }
 
-    Column(modifier = Modifier.padding(26.dp)
-        .padding(top=30.dp)) {
+    Column(modifier = Modifier.padding(26.dp).padding(top = 30.dp)) {
         Text(
             text = stringResource(R.string.titulo_listar_pedidos),
             style = MaterialTheme.typography.headlineSmall,
@@ -42,7 +41,7 @@ fun ListarPedidos() {
         )
 
         LazyColumn {
-            itemsIndexed(listaPedidos) { _, pedido ->
+            items(listaPedidos) { pedido ->
                 Card(
                     modifier = Modifier
                         .fillMaxWidth()
