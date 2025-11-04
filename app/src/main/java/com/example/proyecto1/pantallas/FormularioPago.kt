@@ -1,4 +1,4 @@
-package com.example.proyecto1
+package com.example.proyecto1.pantallas
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -22,10 +22,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.core.text.isDigitsOnly
+import com.example.proyecto1.R
 
 data class Pago(
     val tipoTarjeta: String,
@@ -75,7 +76,7 @@ fun FormularioPago() {
 
         OutlinedTextField(
             value = numeroTarjeta,
-            onValueChange = { numeroTarjeta = it },
+            onValueChange = { if (it.length <=16  && it.isDigitsOnly()) numeroTarjeta = it },
             label = { Text(stringResource(R.string.numero_tarjeta)) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             singleLine = true,
@@ -92,7 +93,7 @@ fun FormularioPago() {
 
         OutlinedTextField(
             value = cvc,
-            onValueChange = { cvc = it },
+            onValueChange = { if (it.length <=3 && it.isDigitsOnly()) cvc = it },
             label = { Text(stringResource(R.string.cvc)) },
             singleLine = true,
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),

@@ -48,6 +48,7 @@
     <!-- REALIZAR PEDIDO -->
 
     <string name="tipo_pizza">Tipo de pizza:</string>
+    <string name="extras">Extras:</string>
     <string name="romana">Romana</string>
     <string name="barbacoa">Barbacoa</string>
     <string name="margarita">Margarita</string>

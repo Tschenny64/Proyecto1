@@ -1,4 +1,4 @@
-package com.example.proyecto1
+package com.example.proyecto1.pantallas
 
 
 import androidx.compose.foundation.layout.Arrangement
@@ -25,7 +25,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.proyecto1.R
-
 @Composable
 fun RealizarPedido() {
     Column(
@@ -35,6 +34,7 @@ fun RealizarPedido() {
         verticalArrangement = Arrangement.Center,
     ) {
         var tipoPizza by remember { mutableStateOf("Romana") }
+
         Text(
             text = stringResource(R.string.tipo_pizza),
             fontWeight = FontWeight.Bold,
@@ -53,8 +53,16 @@ fun RealizarPedido() {
             Text(text = stringResource(R.string.margarita))
         }
 
+        // Sección de EXTRAS
+
         if (tipoPizza == "Romana") {
             var conChampis by remember { mutableStateOf(false) }
+            Text(
+                text = stringResource(R.string.extras),
+                fontWeight = FontWeight.Bold,
+                fontSize = 18.sp,
+                modifier = Modifier.padding(top = 8.dp)
+            )
             Row {
                 RadioButton(selected = conChampis, onClick = { conChampis = true })
                 Text(stringResource(R.string.con_champis))
@@ -89,6 +97,12 @@ fun RealizarPedido() {
         if (tipoPizza == "Margarita") {
             var conPina by remember { mutableStateOf(false) }
             var vegana by remember { mutableStateOf(false) }
+            Text(
+                text = stringResource(R.string.extras),
+                fontWeight = FontWeight.Bold,
+                fontSize = 18.sp,
+                modifier = Modifier.padding(top = 8.dp)
+            )
 
             Row {
                 RadioButton(selected = conPina, onClick = { conPina = true })
@@ -219,5 +233,4 @@ fun RealizarPedido() {
         }
 
     }
-    }
-
+}

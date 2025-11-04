@@ -4,18 +4,18 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.proyecto1.ui.theme.Proyecto1Theme
-import java.text.Normalizer
+import com.example.proyecto1.pantallas.FormularioPago
+import com.example.proyecto1.pantallas.ListarPedidos
+import com.example.proyecto1.pantallas.RealizarPedido
+import com.example.proyecto1.ui.theme.AppTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            Proyecto1Theme {
-                ListarPedidos()
+            AppTheme {
+                FormularioPago()
             }
         }
     }

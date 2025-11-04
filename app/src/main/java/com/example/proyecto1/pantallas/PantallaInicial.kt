@@ -1,4 +1,4 @@
-package com.example.proyecto1
+package com.example.proyecto1.pantallas
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -21,6 +21,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.proyecto1.R
 
 @Composable
 fun PantallaInicial() {
