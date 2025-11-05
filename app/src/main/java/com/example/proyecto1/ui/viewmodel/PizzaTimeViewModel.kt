@@ -1,7 +1,6 @@
-package com.example.proyecto1.viewmodel
+package com.example.proyecto1.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
-import androidx.room.util.copy
 import com.example.proyecto1.datos.listaUsuariosRegistrados
 import com.example.proyecto1.modelo.Pago
 import com.example.proyecto1.modelo.Usuario
