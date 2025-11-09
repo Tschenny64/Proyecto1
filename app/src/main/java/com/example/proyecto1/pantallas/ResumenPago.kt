@@ -1,32 +1,31 @@
 package com.example.proyecto1.pantallas
 
+import android.content.Intent
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.proyecto1.R
-
-data class DatosPago(
-    val nombreCliente: String,
-    val tipoTarjeta: String,
-    val ultimosDigitos: String,
-    val cantidadPagada: Double
-)
+import com.example.proyecto1.ui.viewmodel.PizzeriaViewModel
 
 @Composable
-fun ResumenPago() {
-    val datosPago = DatosPago(
-        nombreCliente = "Iker Catala",
-        tipoTarjeta = "VISA",
-        ultimosDigitos = "**** 9999",
-        cantidadPagada = 4.95
-    )
+fun ResumenPago(
+    viewModel: PizzeriaViewModel = viewModel(),
+    onAceptar: () -> Unit = {},
+    modifier: Modifier = Modifier
+) {
+    val pedidos = viewModel.pedidos.collectAsState()
+    val tipoPago = viewModel.tipoPagoSeleccionado.collectAsState()
+    val numeroTarjeta = viewModel.numeroTarjeta.collectAsState()
+    val context = LocalContext.current
 
-    var mensaje by remember { mutableStateOf("") }
+    val pedidoActual = pedidos.value.lastOrNull()
 
     Column(
         modifier = Modifier
@@ -45,9 +44,13 @@ fun ResumenPago() {
 
         Card(modifier = Modifier.fillMaxWidth()) {
             Column(modifier = Modifier.padding(16.dp)) {
-                Text("${stringResource(R.string.nombre)}: ${datosPago.nombreCliente}")
-                Text("${stringResource(R.string.tipo_tarjeta)}: ${datosPago.tipoTarjeta}")
-                Text("${stringResource(R.string.numero_tarjeta)}: ${datosPago.ultimosDigitos}")
+                Text("${stringResource(R.string.nombre)}: Iker Catala")
+                Text("${stringResource(R.string.tipo_tarjeta)}: ${tipoPago.value.nombre}")
+                Text("${stringResource(R.string.numero_tarjeta)}: **** ${numeroTarjeta.value.takeLast(4)}")
+                pedidoActual?.let {
+                    Text(stringResource(R.string.precio_total, pedidoActual.precioTotal))
+
+                }
             }
         }
 
@@ -58,17 +61,16 @@ fun ResumenPago() {
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
             Button(onClick = {
-
+                onAceptar()
             }) {
                 Text(stringResource(R.string.aceptar))
             }
 
             Button(onClick = {
-
+            //enviar justificante
             }) {
                 Text(stringResource(R.string.enviar))
             }
         }
     }
-
 }

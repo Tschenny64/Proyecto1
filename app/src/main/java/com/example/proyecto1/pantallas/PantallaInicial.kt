@@ -1,18 +1,8 @@
 package com.example.proyecto1.pantallas
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.material3.Button
-import androidx.compose.material3.Card
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -21,10 +11,17 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.proyecto1.R
+import com.example.proyecto1.ui.viewmodel.PizzeriaViewModel
 
 @Composable
-fun PantallaInicial() {
+fun PantallaInicial(
+    viewModel: PizzeriaViewModel = viewModel(),
+    onRealizarPedido: () -> Unit = {},
+    onListarPedidos: () -> Unit = {},
+    modifier: Modifier = Modifier
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -47,32 +44,20 @@ fun PantallaInicial() {
                 .padding(bottom = 16.dp)
         )
 
-        Card(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 12.dp)
-        ) {
-        Text("${stringResource(R.string.nombre)}: Iker", fontSize = 18.sp)
-        Text("${stringResource(R.string.apellidos)}: Catala", fontSize = 18.sp)
-        Text("${stringResource(R.string.correo)}: ikercatala@gmail.com", fontSize = 18.sp)
-        Text("${stringResource(R.string.telefono)}: 5287932879", fontSize = 18.sp)
-        }
 
         Spacer(modifier = Modifier.height(32.dp))
 
         Button(
-            onClick = {
-                //REDIRIGIR REALIZAR PEDIDO
-            },
-            modifier = Modifier.fillMaxWidth().padding(bottom = 12.dp)
+            onClick = { onRealizarPedido() },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 12.dp)
         ) {
             Text(stringResource(R.string.realizar_pedido))
         }
 
         Button(
-            onClick = {
-                // REDIRIGIR LISTAR PEDIDOS
-            },
+            onClick = { onListarPedidos() },
             modifier = Modifier.fillMaxWidth()
         ) {
             Text(stringResource(R.string.listar_pedidos))

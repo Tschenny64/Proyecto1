@@ -8,11 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
-import com.example.proyecto1.pantallas.FormularioPago
-import com.example.proyecto1.pantallas.ListarPedidos
-import com.example.proyecto1.pantallas.PantallaInicial
-import com.example.proyecto1.pantallas.RealizarPedido
-import com.example.proyecto1.pantallas.ResumenPago
+import com.example.proyecto1.pantallas.Navegacion
 import com.example.proyecto1.ui.theme.AppTheme
 
 class MainActivity : ComponentActivity() {
@@ -21,8 +17,13 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             AppTheme {
-                    FormularioPago()
+                Scaffold(
+                    modifier = Modifier.fillMaxSize(),
+                    containerColor = androidx.compose.ui.graphics.Color(0xFFFDFD96)
+                ) {
+                    Navegacion()
                 }
             }
         }
     }
+}

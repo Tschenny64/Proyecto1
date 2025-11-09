@@ -1,38 +1,32 @@
 package com.example.proyecto1.pantallas
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.Button
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.RadioButton
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.proyecto1.R
-import com.example.proyecto1.modelo.tipoTarjeta
-import com.example.proyecto1.ui.viewmodel.PizzaTimeViewModel
+import com.example.proyecto1.ui.viewmodel.PizzeriaViewModel
 
 @Composable
 fun FormularioPago(
-    viewModel: PizzaTimeViewModel = viewModel()
+    viewModel: PizzeriaViewModel = viewModel(),
+    onCancelar: () -> Unit = {},
+    onAceptar: () -> Unit = {},
+    modifier: Modifier = Modifier
 ) {
-    val pago = viewModel.pagoActual.collectAsState()
+    val tipoPago = viewModel.tipoPagoSeleccionado.collectAsState()
+    val numeroTarjeta = viewModel.numeroTarjeta.collectAsState()
+    val fechaCaducidad = viewModel.fechaCaducidad.collectAsState()
+    val cvc = viewModel.cvc.collectAsState()
+    val formularioValido = viewModel.formularioValido.collectAsState()
 
     Column(
         modifier = Modifier
@@ -50,47 +44,36 @@ fun FormularioPago(
         )
 
         Text(stringResource(R.string.tipo_tarjeta), fontWeight = FontWeight.Bold)
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            RadioButton(
-                selected = pago.value.tipoTarjeta == tipoTarjeta.VISA,
-                onClick = { viewModel.actualizarTipo(tipoTarjeta.VISA) }
-            )
-            Text(stringResource(R.string.visa))
-        }
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            RadioButton(
-                selected = pago.value.tipoTarjeta == tipoTarjeta.MasterCard,
-                onClick = { viewModel.actualizarTipo(tipoTarjeta.MasterCard) }
-            )
-            Text(stringResource(R.string.mastercard))
-        }
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            RadioButton(
-                selected = pago.value.tipoTarjeta == tipoTarjeta.Euro6000,
-                onClick = { viewModel.actualizarTipo(tipoTarjeta.Euro6000) }
-            )
-            Text(stringResource(R.string.euro6000))
+
+        viewModel.opcionesPago.forEach { opcion ->
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                RadioButton(
+                    selected = tipoPago.value == opcion,
+                    onClick = { viewModel.seleccionarOpcionPago(opcion) }
+                )
+                Text(opcion.nombre)
+            }
         }
 
         Spacer(modifier = Modifier.height(16.dp))
 
         OutlinedTextField(
-            value = pago.value.numeroTarjeta,
-            onValueChange = { viewModel.actualizarNumero(it) },
+            value = numeroTarjeta.value,
+            onValueChange = { viewModel.actualizarNumeroTarjeta(it) },
             label = { Text(stringResource(R.string.numero_tarjeta)) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             singleLine = true,
             modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp)
         )
         OutlinedTextField(
-            value = pago.value.fechaCaducidad,
-            onValueChange = { viewModel.actualizarFecha(it) },
+            value = fechaCaducidad.value,
+            onValueChange = { viewModel.actualizarFechaCaducidad(it) },
             label = { Text(stringResource(R.string.fecha_caducidad)) },
             singleLine = true,
             modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp)
         )
         OutlinedTextField(
-            value = pago.value.cvc,
+            value = cvc.value,
             onValueChange = { viewModel.actualizarCvc(it) },
             label = { Text(stringResource(R.string.cvc)) },
             singleLine = true,
@@ -105,23 +88,20 @@ fun FormularioPago(
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
-        Button(
-            onClick = {
-
-            },
-
-        ) {
-            Text(stringResource(R.string.cancelar))
-        }
+            Button(onClick = onCancelar) {
+                Text(stringResource(R.string.cancelar))
+            }
             Spacer(modifier = Modifier.width(10.dp))
-        Button(
-            onClick = {
-
-            },
-        ) {
-            Text(stringResource(R.string.aceptar))
+            Button(
+                onClick = {
+                    if (formularioValido.value) {
+                        onAceptar()
+                    }
+                },
+                enabled = formularioValido.value
+            ) {
+                Text(stringResource(R.string.aceptar))
+            }
         }
-        }
-
     }
 }

@@ -1,236 +1,190 @@
 package com.example.proyecto1.pantallas
 
-
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.material3.Button
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.RadioButton
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.proyecto1.R
+import com.example.proyecto1.ui.viewmodel.PizzeriaViewModel
+
 @Composable
-fun RealizarPedido() {
+fun RealizarPedido(
+    viewModel: PizzeriaViewModel = viewModel(),
+    onCancelar: () -> Unit = {},
+    onAceptar: () -> Unit = {},
+    modifier: Modifier = Modifier
+) {
+    val uiState by viewModel.uiState.collectAsState()
+
+    Row(
+        modifier = modifier
+            .fillMaxSize()
+            .padding(16.dp)
+    ) {
+        Column(
+            modifier = Modifier
+                .weight(1f)
+                .padding(end = 16.dp)
+        ) {
+            Text(stringResource(R.string.tipo_pizza), fontWeight = FontWeight.Bold, fontSize = 18.sp)
+
+            val pizzas = listOf(
+                stringResource(R.string.romana),
+                stringResource(R.string.barbacoa),
+                stringResource(R.string.margarita)
+            )
+
+            pizzas.forEach { tipo ->
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    RadioButton(
+                        selected = uiState.pizzaElegida == tipo,
+                        onClick = { viewModel.seleccionarPizza(tipo) }
+                    )
+                    Text(tipo)
+                }
+            }
+
+            Spacer(Modifier.height(12.dp))
+
+            when (uiState.pizzaElegida) {
+                stringResource(R.string.romana) -> {
+                    Text(stringResource(R.string.extras), fontWeight = FontWeight.Bold, fontSize = 18.sp)
+                    val opciones = listOf(
+                        stringResource(R.string.con_champis),
+                        stringResource(R.string.sin_champis)
+                    )
+                    opciones.forEach { opcion ->
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            RadioButton(
+                                selected = uiState.opcionElegida == opcion,
+                                onClick = { viewModel.seleccionarOpcionPizza(opcion) }
+                            )
+                            Text(opcion)
+                        }
+                    }
+                }
+                stringResource(R.string.barbacoa) -> {
+                    Text(stringResource(R.string.tipo_carne), fontWeight = FontWeight.Bold, fontSize = 18.sp)
+                    val opciones = listOf(
+                        stringResource(R.string.cerdo),
+                        stringResource(R.string.pollo),
+                        stringResource(R.string.ternera)
+                    )
+                    opciones.forEach { opcion ->
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            RadioButton(
+                                selected = uiState.opcionElegida == opcion,
+                                onClick = { viewModel.seleccionarOpcionPizza(opcion) }
+                            )
+                            Text(opcion)
+                        }
+                    }
+                }
+                stringResource(R.string.margarita) -> {
+                    Text(stringResource(R.string.extras), fontWeight = FontWeight.Bold, fontSize = 18.sp)
+                    val opciones = listOf(
+                        stringResource(R.string.con_pina),
+                        stringResource(R.string.sin_pina),
+                        stringResource(R.string.vegana),
+                        stringResource(R.string.normal)
+                    )
+                    opciones.forEach { opcion ->
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            RadioButton(
+                                selected = uiState.opcionElegida == opcion,
+                                onClick = { viewModel.seleccionarOpcionPizza(opcion) }
+                            )
+                            Text(opcion)
+                        }
+                    }
+                }
+            }
+
+            Spacer(Modifier.height(12.dp))
+
+            Text(stringResource(R.string.tamano_pizza), fontWeight = FontWeight.Bold, fontSize = 18.sp)
+            val tamanos = listOf(
+                "PEQUENA" to stringResource(R.string.pequena),
+                "MEDIANA" to stringResource(R.string.mediana),
+                "GRANDE" to stringResource(R.string.grande)
+            )
+
+            tamanos.forEach { (key, label) ->
+                Row {
+                    RadioButton(
+                        selected = uiState.tamanoElegido == key,
+                        onClick = { viewModel.seleccionarTamano(key) }
+                    )
+                    Text(label)
+                }
+            }
+
+        }
+        Column(
+            modifier = Modifier
+                .weight(1f)
+                .padding(start = 16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(stringResource(R.string.bebida), fontWeight = FontWeight.Bold, fontSize = 18.sp)
+            val bebidas = listOf(
+                stringResource(R.string.agua),
+                stringResource(R.string.cola),
+                stringResource(R.string.sin_bebida)
+            )
+            bebidas.forEach { bebida ->
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    RadioButton(
+                        selected = uiState.bebidaElegida == bebida,
+                        onClick = { viewModel.seleccionarBebida(bebida) }
+                    )
+                    Text(bebida)
+                }
+            }
+        }
+    }
+
     Column(
         modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        verticalArrangement = Arrangement.Center,
+            .fillMaxWidth()
+            .padding(top = 560.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        var tipoPizza by remember { mutableStateOf("Romana") }
-
-        Text(
-            text = stringResource(R.string.tipo_pizza),
-            fontWeight = FontWeight.Bold,
-            fontSize = 18.sp
-        )
-        Row {
-            RadioButton(selected = tipoPizza == "Romana", onClick = { tipoPizza = "Romana" })
-            Text(text = stringResource(R.string.romana))
-        }
-        Row {
-            RadioButton(selected = tipoPizza == "Barbacoa", onClick = { tipoPizza = "Barbacoa" })
-            Text(text = stringResource(R.string.barbacoa))
-        }
-        Row {
-            RadioButton(selected = tipoPizza == "Margarita", onClick = { tipoPizza = "Margarita" })
-            Text(text = stringResource(R.string.margarita))
-        }
-
-        // Sección de EXTRAS
-
-        if (tipoPizza == "Romana") {
-            var conChampis by remember { mutableStateOf(false) }
-            Text(
-                text = stringResource(R.string.extras),
-                fontWeight = FontWeight.Bold,
-                fontSize = 18.sp,
-                modifier = Modifier.padding(top = 8.dp)
-            )
-            Row {
-                RadioButton(selected = conChampis, onClick = { conChampis = true })
-                Text(stringResource(R.string.con_champis))
+        if (uiState.bebidaElegida != stringResource(R.string.sin_bebida)) {
+            Text(stringResource(R.string.cantidad_bebidas), fontWeight = FontWeight.Bold, fontSize = 18.sp)
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Button(onClick = { viewModel.cambiarCantidadBebida(-1) }) { Text("-") }
+                Text(uiState.cantidadBebida.toString(), modifier = Modifier.padding(horizontal = 16.dp))
+                Button(onClick = { viewModel.cambiarCantidadBebida(1) }) { Text("+") }
             }
-            Row {
-                RadioButton(selected = !conChampis, onClick = { conChampis = false })
-                Text(stringResource(R.string.sin_champis))
-            }
+            Spacer(Modifier.height(12.dp))
         }
 
-        if (tipoPizza == "Barbacoa") {
-            var tipoCarne by remember { mutableStateOf("Cerdo") }
-            Text(
-                text = stringResource(R.string.tipo_carne),
-                fontWeight = FontWeight.Bold,
-                fontSize = 18.sp
-            )
-            Row {
-                RadioButton(selected = tipoCarne == "Cerdo", onClick = { tipoCarne = "Cerdo" })
-                Text(stringResource(R.string.cerdo))
-            }
-            Row {
-                RadioButton(selected = tipoCarne == "Pollo", onClick = { tipoCarne = "Pollo" })
-                Text(stringResource(R.string.pollo))
-            }
-            Row {
-                RadioButton(selected = tipoCarne == "Ternera", onClick = { tipoCarne = "Ternera" })
-                Text(stringResource(R.string.ternera))
-            }
-        }
-
-        if (tipoPizza == "Margarita") {
-            var conPina by remember { mutableStateOf(false) }
-            var vegana by remember { mutableStateOf(false) }
-            Text(
-                text = stringResource(R.string.extras),
-                fontWeight = FontWeight.Bold,
-                fontSize = 18.sp,
-                modifier = Modifier.padding(top = 8.dp)
-            )
-
-            Row {
-                RadioButton(selected = conPina, onClick = { conPina = true })
-                Text(stringResource(R.string.con_pina))
-            }
-            Row {
-                RadioButton(selected = !conPina, onClick = { conPina = false })
-                Text(stringResource(R.string.sin_pina))
-            }
-
-            Row {
-                RadioButton(selected = vegana, onClick = { vegana = true })
-                Text(stringResource(R.string.vegana))
-            }
-            Row {
-                RadioButton(selected = !vegana, onClick = { vegana = false })
-                Text(stringResource(R.string.normal))
-            }
-        }
-
-        var tamanoPizza by remember { mutableStateOf("Pequeña") }
-        Text(
-            text = stringResource(R.string.tamano_pizza),
-            fontWeight = FontWeight.Bold,
-            fontSize = 18.sp
-        )
-        Row {
-            RadioButton(selected = tamanoPizza == "Pequeña", onClick = { tamanoPizza = "Pequeña" })
-            Text(stringResource(R.string.pequena))
-        }
-        Row {
-            RadioButton(selected = tamanoPizza == "Mediana", onClick = { tamanoPizza = "Mediana" })
-            Text(stringResource(R.string.mediana))
-        }
-        Row {
-            RadioButton(selected = tamanoPizza == "Grande", onClick = { tamanoPizza = "Grande" })
-            Text(stringResource(R.string.grande))
-        }
-
-        var bebida by remember { mutableStateOf("Sin bebida") }
-        Text(
-            text = stringResource(R.string.bebida),
-            fontWeight = FontWeight.Bold,
-            fontSize = 18.sp
-        )
-        Row {
-            RadioButton(selected = bebida == "Agua", onClick = { bebida = "Agua" })
-            Text(stringResource(R.string.agua))
-        }
-        Row {
-            RadioButton(selected = bebida == "Cola", onClick = { bebida = "Cola" })
-            Text(stringResource(R.string.cola))
-        }
-        Row {
-            RadioButton(selected = bebida == "Sin bebida", onClick = { bebida = "Sin bebida" })
-            Text(stringResource(R.string.sin_bebida))
-        }
-
-        var cantidadPizza by remember { mutableStateOf(1) }
-        Text(
-            text = stringResource(R.string.cantidad_pizzas),
-            fontWeight = FontWeight.Bold,
-            fontSize = 18.sp
-        )
+        Text(stringResource(R.string.cantidad_pizzas), fontWeight = FontWeight.Bold, fontSize = 18.sp)
         Row(verticalAlignment = Alignment.CenterVertically) {
-            Button(onClick = { if (cantidadPizza > 1) cantidadPizza-- }) {
-                Text("-")
-            }
-            Text(text = cantidadPizza.toString(), modifier = Modifier.padding(horizontal = 16.dp))
-            Button(onClick = { cantidadPizza++ }) {
-                Text("+")
-            }
+            Button(onClick = { viewModel.cambiarCantidadPizza(-1) }) { Text("-") }
+            Text(uiState.cantidadPizza.toString(), modifier = Modifier.padding(horizontal = 16.dp))
+            Button(onClick = { viewModel.cambiarCantidadPizza(1) }) { Text("+") }
         }
 
-        var cantidadBebida by remember { mutableStateOf(0) }
-        Text(
-            text = stringResource(R.string.cantidad_bebidas),
-            fontWeight = FontWeight.Bold,
-            fontSize = 18.sp
-        )
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            Button(onClick = { if (cantidadBebida > 0) cantidadBebida-- }) {
-                Text("-")
-            }
-            Text(text = cantidadBebida.toString(), modifier = Modifier.padding(horizontal = 16.dp))
-            Button(onClick = { cantidadBebida++ }) {
-                Text("+")
-            }
-        }
-
-        val precioPizza = when (tamanoPizza) {
-            "Pequeña" -> 4.95
-            "Mediana" -> 6.95
-            "Grande" -> 10.95
-            else -> 0.0
-        }
-
-        val precioBebida = when (bebida) {
-            "Agua" -> 2.0
-            "Cola" -> 2.5
-            else -> 0.0
-        }
-
-        val precioTotal = (precioPizza * cantidadPizza) + (precioBebida * cantidadBebida)
+        Spacer(Modifier.height(16.dp))
 
         Text(
-            text = stringResource(R.string.precio_total, precioTotal),
-            style = MaterialTheme.typography.headlineMedium,
-            modifier = Modifier
-                .align(Alignment.CenterHorizontally)
-                .padding(top = 16.dp)
+            text = stringResource(R.string.precio_total, uiState.precioTotal),
+            style = MaterialTheme.typography.headlineMedium
         )
 
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.Center
-        ) {
-            Button(onClick = {
-                // Volver a pantalla inicial
-            }) { Text(stringResource(R.string.cancelar)) }
+        Spacer(Modifier.height(16.dp))
 
-            Spacer(modifier = Modifier.width(16.dp))
-
-            Button(onClick = {
-                // Ir a resumen del pedido
-
-            }) { Text(stringResource(R.string.aceptar)) }
+        Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+            Button(onClick = onCancelar) { Text(stringResource(R.string.cancelar)) }
+            Button(onClick = onAceptar) { Text(stringResource(R.string.aceptar)) }
         }
-
     }
 }

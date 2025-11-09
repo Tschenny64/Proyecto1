@@ -1,74 +1,72 @@
 <resources>
     <string name="app_name">Proyecto1</string>
-    <!-- RESUMEN PEDIDO -->
-    <string name="titulo_resumen">Resumen del pedido</string>
-    <string name="pizza">Pizza</string>
-    <string name="tamano">Tamaño</string>
+
+    <string name="nombre">Nombre </string>
+    <!-- Pantalla Inicial -->
+    <string name="titulo_pantalla_inicial">PizzaTime</string>
+    <string name="realizar_pedido">Realizar pedido</string>
+    <string name="listar_pedidos">Listar pedidos</string>
+
+    <!-- Realizar Pedido -->
+    <string name="tipo_pizza">Tipo Pizza</string>
+    <string name="tipo_carne">Tipo de Carne</string>
+    <string name="extras">Extras</string>
+    <string name="tamano_pizza">Elige Tamaño</string>
     <string name="bebida">Bebida</string>
     <string name="cantidad_pizzas">Cantidad de pizzas</string>
     <string name="cantidad_bebidas">Cantidad de bebidas</string>
-    <string name="precio_total">Precio total: %1$.2f €</string>
+    <string name="precio_total">Precio total: %.2f €</string>
     <string name="cancelar">Cancelar</string>
-    <string name="pagar">Pagar</string>
-
-    <!-- FORMULARIO  PAGO -->
-    <string name="titulo_pago">Formulario de pago</string>
-    <string name="tipo_tarjeta">Tipo de tarjeta</string>
-    <string name="visa">VISA</string>
-    <string name="mastercard">MasterCard</string>
-    <string name="euro6000">Euro 6000</string>
-    <string name="numero_tarjeta">Número de tarjeta</string>
-    <string name="fecha_caducidad">Fecha de caducidad (MM/AA)</string>
-    <string name="cvc">CVC</string>
-    <string name="confirmar_pago">Confirmar pago</string>
-
-    <!-- RESUMEN PAGO -->
-
-    <string name="titulo_resumen_pago">Resumen del pago</string>
     <string name="aceptar">Aceptar</string>
-    <string name="enviar">Enviar</string>
 
-
-    <!-- LISTAR PEDIDOS -->
-
-    <string name="titulo_listar_pedidos">Listar pedidos</string>
-    <string name="carne">Carne</string>
-    <string name="ver_detalle">Ver detalle</string>
-
-    <!-- PANTALLA INICIAL -->
-
-    <string name="nombre">Nombre</string>
-    <string name="apellidos">Apellidos</string>
-    <string name="correo">Correo electrónico</string>
-    <string name="telefono">Teléfono</string>
-    <string name="realizar_pedido">Realizar un pedido</string>
-    <string name="listar_pedidos">Listar pedidos</string>
-    <string name="titulo_pantalla_inicial">Bienvenido a Pizza Time</string>
-
-    <!-- REALIZAR PEDIDO -->
-
-    <string name="tipo_pizza">Tipo de pizza:</string>
-    <string name="extras">Extras:</string>
+    <!-- Opciones de pizza -->
     <string name="romana">Romana</string>
     <string name="barbacoa">Barbacoa</string>
     <string name="margarita">Margarita</string>
-    <string name="con_champis">Con champiñones</string>
-    <string name="sin_champis">Sin champiñones</string>
-    <string name="tipo_carne">Tipo de carne:</string>
-    <string name="cerdo">Cerdo</string>
+    <string name="con_champis">Con Champiñones</string>
+    <string name="sin_champis">Sin Champiñones</string>
     <string name="pollo">Pollo</string>
+    <string name="cerdo">Cerdo</string>
     <string name="ternera">Ternera</string>
     <string name="con_pina">Con piña</string>
     <string name="sin_pina">Sin piña</string>
-    <string name="vegana">Versión vegana</string>
+    <string name="vegana">Vegana</string>
     <string name="normal">Normal</string>
-    <string name="tamano_pizza">Tamaño de la pizza:</string>
-    <string name="pequena">Pequeña (4,95 €)</string>
-    <string name="mediana">Mediana (6,95 €)</string>
-    <string name="grande">Grande (10,95 €)</string>
-    <string name="agua">Agua (2 €)</string>
-    <string name="cola">Cola (2,5 €)</string>
-    <string name="sin_bebida">Sin bebida (0 €)</string>
+
+    <!-- Tamaños -->
+    <string name="pequena">Pequeña</string>
+    <string name="mediana">Mediana</string>
+    <string name="grande">Grande</string>
+
+    <!-- Bebidas -->
+    <string name="agua">Agua</string>
+    <string name="cola">Cola</string>
+    <string name="sin_bebida">Sin bebida</string>
+
+    <!-- Listar Pedidos -->
+    <string name="titulo_listar_pedidos">Lista de pedidos</string>
+    <string name="ver_detalles">Ver detalles</string>
+    <string name="pizza">Pizza</string>
+    <string name="tamano">Tamaño</string>
+
+    <!-- Resumen Pedido -->
+    <string name="titulo_resumen">Resumen del pedido</string>
+    <string name="opcion">Extras</string>
+    <string name="pagar">Pagar</string>
+    <string name="resumen_pedido">Resumen Pedido</string>
 
 
+    <!-- Formulario Pago -->
+    <string name="titulo_pago">Formulario de Pago</string>
+    <string name="tipo_tarjeta">Tipo de Tarjeta</string>
+    <string name="numero_tarjeta">Número de Tarjeta</string>
+    <string name="fecha_caducidad">Caducidad (MM/AA)</string>
+    <string name="cvc">CVC</string>
+    <string name="formulario_pago">Formulario pago</string>
+
+    <!-- Resumen Pago -->
+    <string name="titulo_resumen_pago">Resumen de Pago</string>
+    <string name="enviar">Enviar</string>
+    <string name="atras">Atrás</string>
+    <string name="resumen_pago">Resumen Pago</string>
 </resources>
